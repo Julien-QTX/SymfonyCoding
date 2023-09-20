@@ -6,8 +6,8 @@
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
-/var/
-/vendor/
+/symfonyCoding/var/
+/symfonyCoding/vendor/
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
@@ -21,8 +21,14 @@
 ###< symfony/phpunit-bridge ###
 /migrations/
 ###> symfony/webpack-encore-bundle ###
-/node_modules/
-/public/build/
-npm-debug.log
-yarn-error.log
+/symfonyCoding/public/build/
+/symfonyCoding/npm-debug.log
+/symfonyCoding/yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+symfonyCoding/public/build/
+symfonyCoding/npm-debug.log
+symfonyCoding/yarn-error.log
+symfonyCoding/node_modules/
+symfonyCoding/composer.json
+symfonyCoding/composer.lock
+symfonyCoding/output.css
