@@ -6,9 +6,17 @@ use App\Form\ProfilType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface; // Import Doctrine's EntityManager
 
 class ProfileController extends AbstractController
 {
+    private $entityManager; // Declare the EntityManager property
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager; // Inject the EntityManager
+    }
+
     #[Route('/profile', name: 'app_profile')]
     public function index()
     {
@@ -18,7 +26,7 @@ class ProfileController extends AbstractController
         return $this->render('profile/index.html.twig', ['user' => $user]);
     }
 
-// Modifier le profil
+    // Modifier le profil
     public function edit(Request $request)
     {
         // Récupérez l'utilisateur connecté
@@ -31,18 +39,15 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // Enregistrez les modifications dans la base de données
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $this->entityManager->persist($user); // Use the injected EntityManager
+            $this->entityManager->flush(); // Use the injected EntityManager
 
             // Redirigez l'utilisateur vers sa page de profil
-            return $this->redirectToRoute('profile');
+            return $this->redirectToRoute('app_profile');
         }
 
         return $this->render('profile/edit.html.twig', [
             'form' => $form->createView(),
         ]);
     }
-
 }
-
