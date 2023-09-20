@@ -1,3 +1,19 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+
+#front:
+#    resource: 'routes/front.yaml'
+#    prefix: /{_locale}
+#    requirements:
+#        _locale: '%app_locales%'
+
+profile:
+    path: '/profil'
+    controller: App\Controller\ProfileController::index
+    methods: ['GET']
+
+profile_edit:
+    path: '/profil/modifier'
+    controller: App\Controller\ProfileController::edit
+    methods: ['GET', 'POST']
