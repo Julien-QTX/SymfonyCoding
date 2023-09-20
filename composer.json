@@ -1,5 +1,6 @@
 {
     "require": {
-        "symfony/translation": "^6.3"
+        "symfony/translation": "^6.3",
+        "twig/extensions": "^1.5"
     }
 }
