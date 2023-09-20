@@ -21,7 +21,7 @@
 ###< symfony/phpunit-bridge ###
 /migrations/
 ###> symfony/webpack-encore-bundle ###
-/symfonyCoding/node_modules/
+/symfonyCoding/symfonyCoding/node_modules/
 /symfonyCoding/public/build/
 /symfonyCoding/npm-debug.log
 /symfonyCoding/yarn-error.log
