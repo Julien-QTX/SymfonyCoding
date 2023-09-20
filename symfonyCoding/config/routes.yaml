@@ -1,3 +1,20 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+
+
+tag_create:
+    path: '/tags/create'
+    controller: 'App\Controller\TagController::create'
+
+tag_index:
+    path: '/tags'
+    controller: 'App\Controller\TagController::index'
+
+tag_edit:
+    path: '/tags/{id}/edit'
+    controller: 'App\Controller\TagController::edit'
+
+tag_delete:
+    path: '/tags/{id}/delete'
+    controller: 'App\Controller\TagController::delete'
