@@ -2,8 +2,7 @@ controllers:
     resource: ../src/Controller/
     type: attribute
 
-front:
-    resource: 'routes/front.yaml'
-    prefix: /{_locale}
-    requirements:
-        _locale: '%app_locales%'
+#front:
+ #  prefix: /{_locale}
+  #  requirements:
+   #     _locale: '%app_locales%'
