@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Users;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -11,14 +12,21 @@ class ProfilType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('field_name')
-        ;
+            ->add('email')
+            ->add('username')
+            ->add('password', null, [
+                'disabled' => true,
+            ])
+            ->add('roles', null, [
+                'disabled' => true,
+            ]);
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => Users::class,
         ]);
     }
 }
