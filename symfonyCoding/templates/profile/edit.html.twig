@@ -8,29 +8,27 @@
     {{ form_start(form) }}
     {{ form_errors(form) }}
 
-    <div class="form-group">
-        {{ form_label(form.username, 'Nom d\'utilisateur') }}
-        {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
-        {{ form_errors(form.username) }}
-    </div>
+    {% block base_form_fields %}
+        <div class="form-group">
+            {{ form_label(form.username, 'Nom d\'utilisateur') }}
+            {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.username) }}
+        </div>
 
-    <div class="form-group">
-        {{ form_label(form.email, 'Email') }}
-        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-        {{ form_errors(form.email) }}
-    </div>
+        <div class="form-group">
+            {{ form_label(form.email, 'Email') }}
+            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.email) }}
+        </div>
 
-    <div class="form-group">
-        {{ form_label(form.password, 'Password') }}
-        {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
-        {{ form_errors(form.password) }}
-    </div>
+        <div class="form-group">
+            {{ form_label(form.password, 'Password') }}
+            {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.password) }}
+        </div>
 
-    <div class="form-group">
-        {{ form_label(form.roles) }}
-        {{ form_widget(form.roles, {'attr': {'class': 'selectpicker', 'data-actions-box': 'true', 'multiple': 'true'}}) }}
-    </div>
 
+    {% endblock %}
 
     {# Ajoutez d'autres champs du formulaire ici #}
 

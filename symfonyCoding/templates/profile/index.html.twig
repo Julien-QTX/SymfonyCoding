@@ -4,14 +4,12 @@
 
 {% block body %}
     <h1>Votre Profile</h1>
-    <p>Nom d'utilisateur : {# { user.username }} #}</p>
-    <p>Email : {# { user.email }} #}</p>
-    <p>Rôles : {#  { user.roles|join(', ') }}#}</p>
+    <p>Nom d'utilisateur : {{ user.username }} </p>
+    <p>Email : {{ user.email }} </p>
 
 
     {# Ajoutez d'autres champs du profil ici #}
+    <a href={{ path('app_logout') }}>Logout</a>
 
     <a href="{{ path('profile_edit') }}">Modifier le Profile</a>
 {% endblock %}
-
-

@@ -14,8 +14,6 @@
 
         <input type="hidden" name="_token" value="{{ csrf_token('authenticate') }}">
 
-        <a href={{ path('app_logout') }}>Logout</a>
-
         <a href={{ path('app_register') }}>Register</a>
 
         <button type="submit">login</button>

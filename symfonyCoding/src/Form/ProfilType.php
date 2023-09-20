@@ -16,9 +16,6 @@ class ProfilType extends AbstractType
             ->add('username')
             ->add('password', null, [
                 'disabled' => true,
-            ])
-            ->add('roles', null, [
-                'disabled' => true,
             ]);
     }
 

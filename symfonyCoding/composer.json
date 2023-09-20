@@ -9,12 +9,8 @@
         "ext-iconv": "*",
         "doctrine/doctrine-bundle": "^2.10",
         "doctrine/doctrine-migrations-bundle": "^3.2",
-<<<<<<< HEAD
         "doctrine/orm": "^2.16",
         "gedmo/doctrine-extensions": "^3.13",
-=======
-        "doctrine/orm": "^2.15",
->>>>>>> master
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.23",
         "symfony/asset": "6.3.*",
@@ -30,22 +26,6 @@
         "symfony/mailer": "6.3.*",
         "symfony/mime": "6.3.*",
         "symfony/monolog-bundle": "^3.0",
-<<<<<<< HEAD
-        "symfony/notifier": "6.1.*",
-        "symfony/process": "6.1.*",
-        "symfony/property-access": "6.1.*",
-        "symfony/property-info": "6.1.*",
-        "symfony/runtime": "^6.3",
-        "symfony/security-bundle": "6.1.*",
-        "symfony/serializer": "6.1.*",
-        "symfony/string": "6.1.*",
-        "symfony/translation": "6.1.*",
-        "symfony/twig-bundle": "6.1.*",
-        "symfony/validator": "6.1.*",
-        "symfony/web-link": "6.1.*",
-        "symfony/webpack-encore-bundle": "^1.17",
-        "symfony/yaml": "6.1.*",
-=======
         "symfony/notifier": "6.3.*",
         "symfony/process": "6.3.*",
         "symfony/property-access": "6.3.*",
@@ -60,7 +40,6 @@
         "symfony/web-link": "6.3.*",
         "symfony/webpack-encore-bundle": "^2.0",
         "symfony/yaml": "6.3.*",
->>>>>>> master
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/intl-extra": "^3.7",
         "twig/twig": "^2.12|^3.0"

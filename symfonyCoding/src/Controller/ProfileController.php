@@ -7,9 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @method getDoctrine()
- */
 class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
