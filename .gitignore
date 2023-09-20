@@ -1,2 +1,34 @@
 
-symfonyCoding/migrations/Version20230919130624.php
+###> symfony/framework-bundle ###
+/.env.local
+/.env
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/symfonyCoding/var/
+/symfonyCoding/vendor/
+###< symfony/framework-bundle ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+/migrations/
+###> symfony/webpack-encore-bundle ###
+/symfonyCoding/public/build/
+/symfonyCoding/npm-debug.log
+/symfonyCoding/yarn-error.log
+###< symfony/webpack-encore-bundle ###
+symfonyCoding/public/build/
+symfonyCoding/npm-debug.log
+symfonyCoding/yarn-error.log
+symfonyCoding/node_modules/
+symfonyCoding/composer.json
+symfonyCoding/composer.lock
+symfonyCoding/output.css
