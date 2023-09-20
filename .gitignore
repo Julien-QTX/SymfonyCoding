@@ -29,3 +29,6 @@ symfonyCoding/public/build/
 symfonyCoding/npm-debug.log
 symfonyCoding/yarn-error.log
 symfonyCoding/node_modules/
+symfonyCoding/composer.json
+symfonyCoding/composer.lock
+symfonyCoding/output.css
