@@ -26,3 +26,4 @@
 /symfonyCoding/npm-debug.log
 /symfonyCoding/yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+symfonyCoding/node_modules/
