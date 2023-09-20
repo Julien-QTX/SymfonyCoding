@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Éditer un Tag{% endblock %}
+
+{% block body %}
+    <h1>Éditer un Tag</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+
+    <button type="submit">Enregistrer les modifications</button>
+
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_ctag_index') }}">Retour à la liste des Tags</a>
+{% endblock %}
