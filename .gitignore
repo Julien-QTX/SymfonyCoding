@@ -32,3 +32,4 @@ symfonyCoding/node_modules/
 symfonyCoding/composer.json
 symfonyCoding/composer.lock
 symfonyCoding/output.css
+*.lock
