@@ -15,6 +15,7 @@ class CtagController extends AbstractController
 {
     private $managerRegistry;
 
+
     public function __construct(ManagerRegistry $managerRegistry)
     {
         $this->managerRegistry = $managerRegistry;
@@ -79,7 +80,7 @@ class CtagController extends AbstractController
         return $this->redirectToRoute('app_ctag_index');
     }
 
-   
+
 
 
 }
