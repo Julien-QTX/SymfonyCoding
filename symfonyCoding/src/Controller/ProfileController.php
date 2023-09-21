@@ -47,7 +47,6 @@ class ProfileController extends AbstractController
             );
 
             $user->setPassword($encodedPassword);
-            $this->entityManager->flush();
             $this->entityManager->persist($user); // Use the injected EntityManager
             $this->entityManager->flush(); // Use the injected EntityManager
 
