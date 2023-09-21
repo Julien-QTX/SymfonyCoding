@@ -1,3 +1,7 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+# config/routes.yaml
+download_article_pdf:
+    path: '/article/{id}/download-pdf'
+    controller: 'App\Controller\ArticleController::downloadPdf'
