@@ -1,7 +1,10 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
-  purge: [],
-  darkMode: false, 
+  purge: [
+    './src/**/*.html',
+    './src/**/*.js',
+    // Ajoutez d'autres chemins de fichiers ici si nécessaire
+  ],
+  darkMode: false,
   content: [
     "./assets/**/*.js",
     "./templates/**/*.html.twig",
@@ -13,4 +16,4 @@ module.exports = {
     require('tailwindcss'),
     require('autoprefixer'),
   ],
-}
+};
