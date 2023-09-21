@@ -3,17 +3,20 @@
 {% block title %}Modifier le Profil{% endblock %}
 
 {% block body %}
-    <h1>Modifier Votre Profil</h1>
+    <div class="container">
+        <h1>Modifier Votre Profil</h1>
 
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <br>
 
-    {% block base_form_fields %}
         <div class="form-group">
             {{ form_label(form.username, 'Nom d\'utilisateur') }}
             {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(form.username) }}
         </div>
+
+        <br>
 
         <div class="form-group">
             {{ form_label(form.email, 'Email') }}
@@ -21,20 +24,23 @@
             {{ form_errors(form.email) }}
         </div>
 
+        <br>
+
         <div class="form-group">
-            {{ form_label(form.password, 'Password') }}
-            {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.password) }}
+            {{ form_label(form.plainPassword, 'Nouveau Password') }}
+            <br>
+            {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control'}}) }}
+            <br>
+            {{ form_errors(form.plainPassword) }}
         </div>
 
+        <br>
+        {# Ajoutez d'autres champs du formulaire ici #}
 
-    {% endblock %}
+        <button type="submit" class="btn btn-primary">Enregistrer les Modifications</button>
 
-    {# Ajoutez d'autres champs du formulaire ici #}
+        {{ form_end(form) }}
 
-    <button type="submit" class="btn btn-primary">Enregistrer les Modifications</button>
-
-    {{ form_end(form) }}
-
-    <a href="{{ path('profile') }}">Retour au Profil</a>
+        <a href="{{ path('profile') }}">Retour au Profil</a>
+    </div>
 {% endblock %}

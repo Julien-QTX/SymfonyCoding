@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Form\ProfilType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface; // Import Doctrine's EntityManager
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface; // Import Doctrine's EntityManager
 
 class ProfileController extends AbstractController
 {
@@ -27,7 +29,7 @@ class ProfileController extends AbstractController
     }
 
     // Modifier le profil
-    public function edit(Request $request)
+    public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher)
     {
         // Récupérez l'utilisateur connecté
         $user = $this->getUser();
@@ -39,6 +41,13 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // Enregistrez les modifications dans la base de données
+            $encodedPassword = $userPasswordHasher->hashPassword(
+                $user,
+                $form->get('plainPassword')->getData()
+            );
+
+            $user->setPassword($encodedPassword);
+            $this->entityManager->flush();
             $this->entityManager->persist($user); // Use the injected EntityManager
             $this->entityManager->flush(); // Use the injected EntityManager
 
