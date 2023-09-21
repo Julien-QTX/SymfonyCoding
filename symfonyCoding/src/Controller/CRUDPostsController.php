@@ -11,9 +11,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Articles;
 
+#[Route('/posts')]
 class CRUDPostsController extends AbstractController
 {
-    #[Route('/posts/create', name: 'app_posts_create_controller', methods: ['GET', 'POST'])]
+    #[Route('/create', name: 'app_posts_create_controller', methods: ['GET', 'POST'])]
     public function create(Request $request, ManagerRegistry $entityManager): Response
     {
 
@@ -77,7 +78,7 @@ class CRUDPostsController extends AbstractController
 
     }
 
-    #[Route('/posts/show/{slug}', name: 'app_posts_show_controller', methods: ['GET'])]
+    #[Route('/show/{slug}', name: 'app_posts_show_controller', methods: ['GET'])]
     public function show($slug, ManagerRegistry $entityManager): Response
     {
         $article = $entityManager->getRepository(Articles::class)->findOneBy(['slug' => $slug]);
@@ -96,7 +97,7 @@ class CRUDPostsController extends AbstractController
         ]);
     }
 
-    #[Route('/posts/edit/{slug}', name: 'app_posts_edit_controller', methods: ['GET', 'POST'])]
+    #[Route('/edit/{slug}', name: 'app_posts_edit_controller', methods: ['GET', 'POST'])]
     public function edit($slug, Request $request, ManagerRegistry $entityManager): Response
     {
         $article = $entityManager->getRepository(Articles::class)->findOneBy(['slug' => $slug]);
@@ -169,7 +170,7 @@ class CRUDPostsController extends AbstractController
         ]);
     }
 
-    #[Route('/posts/delete/{slug}', name: 'app_posts_delete_controller', methods: ['POST'])]
+    #[Route('/delete/{slug}', name: 'app_posts_delete_controller', methods: ['POST'])]
     public function delete($slug, Request $request, ManagerRegistry $entityManager): Response
     {
         $article = $entityManager->getRepository(Articles::class)->findOneBy(['slug' => $slug]);
