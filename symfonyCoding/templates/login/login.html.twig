@@ -12,19 +12,11 @@
         <label for="password">Password:</label>
         <input type="password" id="password" name="_password">
 
-        <!--<input type="hidden" name="_target_path" value="/user/base">-->
-        <?php
-        dd(submit);
-        >
-
         <input type="hidden" name="_token" value="{{ csrf_token('authenticate') }}">
-
-        <!--<input type="hidden" name="_csrf_token" value="{{ csrf_token('Register') }}">-->
-
-        <a href={{ path('app_logout') }}>Logout</a>
-
-        <a href={{ path('app_register') }}>Register</a>
 
         <button type="submit">login</button>
     </form>
+
+    <a href={{ path('app_register') }}>Register</a>
+
 {% endblock %}

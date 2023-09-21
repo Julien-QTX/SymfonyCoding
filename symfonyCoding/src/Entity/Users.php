@@ -47,6 +47,34 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    private $plainPassword;
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    private $plainPassword2;
+
+    public function getPlainPassword2(): ?string
+    {
+        return $this->plainPassword2;
+    }
+
+    public function setPlainPassword2(string $plainPassword2): self
+    {
+        $this->plainPassword2 = $plainPassword2;
+
+        return $this;
+    }
+
     /**
      * A visual identifier that represents this user.
      *
@@ -79,12 +107,13 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string
+
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): static
+    public function setPassword(string $password): self
     {
         $this->password = $password;
 

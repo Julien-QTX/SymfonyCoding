@@ -1,20 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!{% endblock %}
+{% block title %}Modifier le Profil{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
+    <div class="container">
+        <h1>Modifier Votre Profil</h1>
 
-    <div class="example-wrapper">
-        <h1>Hello {{ controller_name }}! ✅</h1>
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <br>
 
-        This friendly message is coming from:
-        <ul>
-            <li>Your controller at <code><a href="{{ '/Users/JulienQTX/PhpstormProjects/SymfonyCoding/symfonyCoding/src/Controller/ProfileController.php'|file_link(0) }}">src/Controller/ProfileController.php</a></code></li>
-            <li>Your template at <code><a href="{{ '/Users/JulienQTX/PhpstormProjects/SymfonyCoding/symfonyCoding/templates/profile/index.html.twig'|file_link(0) }}">templates/profile/index.html.twig</a></code></li>
-        </ul>
+        <div class="form-group">
+            {{ form_label(form.username, 'Nom d\'utilisateur') }}
+            {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.username) }}
+        </div>
+
+        <br>
+
+        <div class="form-group">
+            {{ form_label(form.email, 'Email') }}
+            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.email) }}
+        </div>
+
+        <br>
+
+        <div class="form-group">
+            {{ form_label(form.plainPassword, 'Nouveau Password') }}
+            <br>
+            {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control'}}) }}
+            <br>
+            {{ form_errors(form.plainPassword) }}
+        </div>
+
+        <br>
+        {# Ajoutez d'autres champs du formulaire ici #}
+
+        <button type="submit" class="btn btn-primary">Enregistrer les Modifications</button>
+
+        {{ form_end(form) }}
+
+        <a href="{{ path('profile') }}">Retour au Profil</a>
     </div>
 {% endblock %}
