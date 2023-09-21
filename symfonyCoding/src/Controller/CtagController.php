@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Tags;
 use App\Form\TagType;
 use Doctrine\Persistence\ManagerRegistry;
@@ -14,11 +13,17 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/ctag')]
 class CtagController extends AbstractController
 {
-    #[Route('/', name: 'app_ctag_index', methods: ['GET'])]
-    public function index(ManagerRegistry $managerRegistry): Response
-    {
-        $tags = $managerRegistry->getRepository(Tags::class)->findAll();
+    private $managerRegistry;
 
+    public function __construct(ManagerRegistry $managerRegistry)
+    {
+        $this->managerRegistry = $managerRegistry;
+    }
+
+    #[Route('/', name: 'app_ctag_index', methods: ['GET'])]
+    public function index(): Response
+    {
+        $tags = $this->managerRegistry->getRepository(Tags::class)->findAll();
         return $this->render('ctag/index.html.twig', ['tags' => $tags]);
     }
 
@@ -30,7 +35,7 @@ class CtagController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $this->managerRegistry->getManager();
             $entityManager->persist($tag);
             $entityManager->flush();
 
@@ -50,7 +55,8 @@ class CtagController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->managerRegistry->getManager();
+            $entityManager->flush();
 
             return $this->redirectToRoute('app_ctag_index');
         }
@@ -61,19 +67,20 @@ class CtagController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'app_ctag_delete', methods: ['DELETE'])]
+    #[Route('/delete/{id}', name: 'app_ctag_delete', methods: ['POST'])]
     public function delete(Request $request, Tags $tag): Response
     {
         if ($this->isCsrfTokenValid('delete' . $tag->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $this->managerRegistry->getManager();
             $entityManager->remove($tag);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_ctag_index');
     }
+
+
+
+
+
 }
-
-
-
-

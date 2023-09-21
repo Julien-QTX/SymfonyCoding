@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Créer un nouveau tag</h1>
+    <h1>Éditer le tag</h1>
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button type="submit">Créer</button>
+    <button type="submit">Mettre à jour</button>
     {{ form_end(form) }}
 
     <a href="{{ path('app_ctag_index') }}">Retour à la liste</a>

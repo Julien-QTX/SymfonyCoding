@@ -1,15 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des Tags{% endblock %}
-
 {% block body %}
-    <h1>Liste des Tags</h1>
+    <h1>Liste des tags</h1>
+
+    <a href="{{ path('app_ctag_create') }}">Créer un nouveau tag</a>
 
     <ul>
         {% for tag in tags %}
-            <li>{{ tag.name }}</li>
+            <li>
+                {{ tag.name }}
+                <a href="{{ path('app_ctag_edit', {'id': tag.id}) }}">Éditer</a>
+
+                <!-- Formulaire de suppression -->
+                <form method="post" action="{{ path('app_ctag_delete', {'id': tag.id}) }}" style="display:inline;">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tag.id) }}">
+                    <button type="submit">Supprimer</button>
+                </form>
+
+            </li>
         {% endfor %}
     </ul>
-
-    <a href="{{ path('app_ctag_create') }}">Créer un Tag</a>
 {% endblock %}
