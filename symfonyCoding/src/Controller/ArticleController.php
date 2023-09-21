@@ -21,12 +21,14 @@ class ArticleController extends AbstractController
             $date = $article->getDate();
             $date = $date->format('d/m/Y');
             $image = $article->getImage();
+            $slug = $article->getSlug();
             // $tags = $article->getTags();
             $articlestable[] = [
                 'title' => $title,
                 'content' => $content,
                 'date' => $date,
                 'image' => $image,
+                'slug' => $slug,
                 // 'tags' => $tags,
             ];
         }
