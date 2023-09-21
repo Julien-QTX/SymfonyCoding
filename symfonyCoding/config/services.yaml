@@ -3,6 +3,8 @@ parameters:
     app_locales: en|fr
     brochures_directory: 'media/products'
 services:
+    App\Controller\CRUDPostsController:
+        tags: ['controller.service_arguments']
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
