@@ -13,6 +13,7 @@ class ArticleController extends AbstractController
     #[Route('/', name: 'app_article')]
     public function index(ManagerRegistry $entityManager): Response
     {
+        $user = $this->getUser();
         $articlestable = [];
         $articles = $entityManager->getRepository(Articles::class)->findAll();
         foreach ($articles as $article) {
