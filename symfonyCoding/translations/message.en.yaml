@@ -1,0 +1,23 @@
+# Translation file for English (en)
+
+homepage.welcome: Welcome to our website!
+homepage.description: Explore our products and services.
+profile.edit: Edit Profile
+profile.save: Save Changes
+article.title: Article Title
+article.content: Article Content
+article.published_on: Published on
+tag.list: List of tags
+tag.create_new: Create a new tag
+current_language: Current Language
+technology: Technology
+sport: Sport
+music: Music
+art: Art
+cooking: Cooking
+travel: Travel
+health: Health
+science: Science
+business: Business
+language.english: English en
+language.french: French fr
