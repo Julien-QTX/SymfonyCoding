@@ -1,14 +1,4 @@
-controllers:
-  resource: ../src/Controller/
-  type: attribute
-
-front:
-  resource: 'routes/front.yaml'
-  prefix: /{_locale}
-  requirements:
-    _locale: '%app_locales%'
-
-app_profile:
+profile:
   path: '/profil'
   controller: App\Controller\ProfileController::index
   methods: ['GET']
@@ -17,18 +7,23 @@ profile_edit:
   path: '/profil/modifier'
   controller: App\Controller\ProfileController::edit
   methods: ['GET', 'POST']
-
+# config/routes.yaml
 download_article_pdf:
-    path: '/download-article-pdf/{id}'
-    controller: 'App\Controller\ArticleController::downloadArticlePdf'
-navbar:
-    path: '/navbar'
-    controller: App\Controller\NavBarController::index
-    methods: ['GET']
+  path: '/article/{id}/download-pdf'
+  controller: 'App\Controller\ArticleController::downloadPdf'
 
 app_login:
   path: /login
   controller: App\Controller\LoginController::index
+
+app_article:
+  path: /
+  controller: App\Controller\ArticleController::index
+
+app_profile:
+  path: /profil
+  controller: App\Controller\ProfileController::index
+  methods: ['GET']
 
 app_posts_create_controller:
   path: /posts/create
@@ -42,9 +37,6 @@ app_posts_delete_controller:
   path: /posts/delete/{slug}
   controller: App\Controller\CRUDPostsController::delete
 
-custom_not_found_route:
-  path: /
-  controller: App\Controller\ArticleController::index
 
 app_posts_show_controller:
   path: /posts/show/{slug}
@@ -69,3 +61,4 @@ app_ctag_delete:
 app_register:
   path: /register
   controller: App\Controller\RegistrationController::register
+

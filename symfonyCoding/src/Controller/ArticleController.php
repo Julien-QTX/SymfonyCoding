@@ -17,7 +17,7 @@ use App\Service\PdfGenerator;
 
 class ArticleController extends AbstractController
 {
-    #[Route('/', name: 'app_article')]
+    //#[Route('/', name: 'app_article')]
     public function index(ManagerRegistry $entityManager, PaginatorInterface $paginator, Request $request): Response
     {
         $langue = $request->getLocale();

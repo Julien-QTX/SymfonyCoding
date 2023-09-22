@@ -23,7 +23,7 @@ class CRUDPostsController extends AbstractController
         $this->slugger = $slugger;
     }
 
-    #[Route('/posts/create', name: 'app_posts_create_controller', methods: ['GET', 'POST'])]
+    //#[Route('/posts/create', name: 'app_posts_create_controller', methods: ['GET', 'POST'])]
     public function create(Request $request, ManagerRegistry $entityManager): Response
     {
         $langue = $request->getLocale();
@@ -107,10 +107,10 @@ class CRUDPostsController extends AbstractController
 
     }
 
-    #[Route('/posts/show/{slug}', name: 'app_posts_show_controller', methods: ['GET'])]
+    //#[Route('/posts/show/{slug}', name: 'app_posts_show_controller', methods: ['GET'])]
     public function show($slug, ManagerRegistry $entityManager, Request $request): Response
     {
-        $langue = $request->getLocale();
+        //$langue = $request->getLocale();
         $user = $this->getUser();
 
         if ($user) {
@@ -144,19 +144,16 @@ class CRUDPostsController extends AbstractController
             'date' => $date,
             'image' => $image,
             'slug' => $slug,
-            'langue' => $langue,
+            //'langue' => $langue,
             'article_id' => $article_id,
             // 'tags' => $tags,
         ]);
-
-
-
     }
 
-    #[Route('/posts/edit/{slug}', name: 'app_posts_edit_controller', methods: ['GET', 'POST'])]
-    public function edit($slug, Request $request, ManagerRegistry $entityManager): Response
+    //#[Route('/posts/edit/{slug}', name: 'app_posts_edit_controller', methods: ['GET', 'POST'])]
+    public function edit(string $slug, Request $request, ManagerRegistry $entityManager): Response
     {
-        $langue = $request->getLocale();
+        //$langue = $request->getLocale();
         $user = $this->getUser();
 
         if ($user) {
@@ -243,14 +240,14 @@ class CRUDPostsController extends AbstractController
             'image' => $image,
             'tags' => $tags,
             'slug' => $slug,
-            'langue' => $langue,
+            //'langue' => $langue,
         ]);
     }
 
-    #[Route('/posts/delete/{slug}', name: 'app_posts_delete_controller', methods: ['POST'])]
+    //#[Route('/posts/delete/{slug}', name: 'app_posts_delete_controller', methods: ['POST'])]
     public function delete($slug, Request $request, ManagerRegistry $entityManager): Response
     {
-        $langue = $request->getLocale();
+        //$langue = $request->getLocale();
         $user = $this->getUser();
 
         if ($user) {
@@ -286,7 +283,7 @@ class CRUDPostsController extends AbstractController
             return $this->redirectToRoute('app_article');
         } else {
             return $this->redirectToRoute('app_posts_show_controller', ['slug' => $slug,
-                'langue' => $langue,
+            //    'langue' => $langue,
         ]);
         }
     }

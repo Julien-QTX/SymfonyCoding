@@ -21,10 +21,10 @@ class ProfileController extends AbstractController
         $this->entityManager = $entityManager; // Inject the EntityManager
     }
 
-    #[Route('/profile', name: 'app_profile')]
+    //#[Route('/profile', name: 'app_profile')]
     public function index(ManagerRegistry $entityManager, Request $request)
     {
-        $langue = $request->getLocale();
+        //$langue = $request->getLocale();
         $user = $this->getUser();
 
         if ($user) {
@@ -50,14 +50,14 @@ class ProfileController extends AbstractController
         return $this->render('profile/index.html.twig', [
             'user' => $user,
             'page' => 'profile',
-            'langue' => $langue,
+            //'langue' => $langue,
         ]);
     }
 
     // Modifier le profil
     public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher, ManagerRegistry $entityManager)
     {
-        $langue = $request->getLocale();
+       // $langue = $request->getLocale();
         $user = $this->getUser();
 
         if ($user) {
@@ -103,7 +103,7 @@ class ProfileController extends AbstractController
         return $this->render('profile/edit.html.twig', [
             'form' => $form->createView(),
             'page' => 'edit profile',
-            'langue' => $langue,
+           // 'langue' => $langue,
         ]);
     }
 }

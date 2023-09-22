@@ -6,24 +6,20 @@
 
 <div class="create-post">
     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST">
-        <div class="mb-4">
-            <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Title:</label>
+        <div class="form-group">
+            <label for="title">Title:</label>
             <input type="text" id="title" name="title"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                class="form-control">
         </div>
         <div class="mb-4">
             <label for="tags" class="block text-gray-700 text-sm font-bold mb-2">Tags:</label>
-            <input type="text" id="tags" name="tags"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <input type="text" id="tags" name="tags" class="form-control">
         </div>
-        <div class="mb-4">
+        <div >
             <label for="content" class="block text-gray-700 text-sm font-bold mb-2">Content:</label>
-            <textarea id="content" name="content"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+            <textarea id="content" name="content" class="form-control"></textarea>
         </div>
-        <button type="submit"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create
-            Post</button>
+        <button type="submit" class="btn btn-success">Create Post</button>
     </form>
 </div>
 {% endblock %}

@@ -20,21 +20,21 @@ class CtagController extends AbstractController
         $this->managerRegistry = $managerRegistry;
     }
 
-    #[Route('/', name: 'app_ctag_index', methods: ['GET'])]
+    //#[Route('/ctags', name: 'app_ctag_index', methods: ['GET'])]
     public function index(Request $request): Response
     {
-        $langue = $request->getLocale();
+        //$langue = $request->getLocale();
         $tags = $this->managerRegistry->getRepository(Tags::class)->findAll();
         return $this->render('ctag/index.html.twig', [
             'tags' => $tags,
-            'langue' => $langue
+            //'langue' => $langue
         ]);
     }
 
-    #[Route('/create', name: 'app_ctag_create', methods: ['GET', 'POST'])]
+    //#[Route('/create', name: 'app_ctag_create', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
-        $langue = $request->getLocale();
+        //$langue = $request->getLocale();
         $tag = new Tags();
         $form = $this->createForm(TagType::class, $tag);
         $form->handleRequest($request);
@@ -50,14 +50,14 @@ class CtagController extends AbstractController
         return $this->render('ctag/create.html.twig', [
             'tag' => $tag,
             'form' => $form->createView(),
-            'langue' => $langue
+            //'langue' => $langue
         ]);
     }
 
-    #[Route('/edit/{id}', name: 'app_ctag_edit', methods: ['GET', 'POST'])]
+    //#[Route('/edit/{id}', name: 'app_ctag_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Tags $tag): Response
     {
-        $langue = $request->getLocale();
+        //$langue = $request->getLocale();
         $form = $this->createForm(TagType::class, $tag);
         $form->handleRequest($request);
 
@@ -71,11 +71,11 @@ class CtagController extends AbstractController
         return $this->render('ctag/edit.html.twig', [
             'tag' => $tag,
             'form' => $form->createView(),
-            'langue' => $langue
+            //'langue' => $langue
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'app_ctag_delete', methods: ['POST'])]
+    //#[Route('/delete/{id}', name: 'app_ctag_delete', methods: ['POST'])]
     public function delete(Request $request, Tags $tag): Response
     {
         if ($this->isCsrfTokenValid('delete' . $tag->getId(), $request->request->get('_token'))) {

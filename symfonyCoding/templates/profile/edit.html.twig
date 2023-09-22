@@ -28,8 +28,8 @@
 
         <div class="form-group">
             {{ form_label(form.plainPassword, 'Nouveau Password') }}
-            <br>
-            {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control'}}) }}
+            <hr>
+            {{ form_widget(form.plainPassword) }}
             <br>
             {{ form_errors(form.plainPassword) }}
         </div>

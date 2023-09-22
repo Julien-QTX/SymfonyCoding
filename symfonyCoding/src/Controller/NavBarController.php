@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class NavBarController extends AbstractController
 {
-    #[Route('/navbar', name: 'app_navbar')]
+    //#[Route('/navbar', name: 'app_navbar')]
     public function index(): Response
     {
         if ($this->getUser()) {

@@ -9,6 +9,7 @@
     {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
     <link rel="stylesheet" href="{{ asset('build/app.css') }}">
     {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
     {{ encore_entry_link_tags('app') }}
     {# {{ encore_entry_link_tags('app') }} #}
     {% endblock %}
@@ -28,7 +29,7 @@
     } %}
     
 
-    {% block body %}{% endblock %}
+    <div class="container center-block">{% block body %}{% endblock %}</div>
     <script src="{{ asset('build/app.js') }}"></script>
 </body>
 

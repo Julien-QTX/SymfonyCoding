@@ -12,10 +12,10 @@
         {% for tag in tags %}
             <li>
                 {{ tag.name }}
-                <a href="{{ path('app_ctag_edit', {'id': tag.id, '_locale': app.request.locale}) }}">{{ 'edit'|trans }}</a>
+                <a href="{{ path('app_ctag_edit', {'id': tag.id}) }}">{{ 'edit'|trans }}</a>
 
                 <!-- Formulaire de suppression -->
-                <form method="post" action="{{ path('app_ctag_delete', {'id': tag.id, '_locale': app.request.locale}) }}" style="display:inline;">
+                <form method="post" action="{{ path('app_ctag_delete', {'id': tag.id}) }}" style="display:inline;">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tag.id) }}">
                     <button type="submit">{{ 'delete'|trans }}</button>
                 </form>

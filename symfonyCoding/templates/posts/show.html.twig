@@ -8,15 +8,12 @@
 
 {% if is_granted('ROLE_ADMIN') %}
 
-<a href="/{{langue}}/posts/edit/{{slug}}"
+<a href="{{ path("app_posts_edit_controller", {'slug': slug}) }}"
     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit
     Post</a>
 
-<form action="/{{langue}}/posts/delete/{{slug}}" method="post">
-    <button type="submit"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-        Delete Post
-    </button>
+<form action="{{ path("app_posts_delete_controller", {'slug': slug}) }}" method="post">
+    <button type="submit" class="btn btn-danger">Delete Post</button>
 </form>
 
 {% endif %}

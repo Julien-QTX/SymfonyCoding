@@ -6,19 +6,20 @@
     {% endif %}
 
     <form action="{{ path('app_login') }}" method="post">
-        <label for="username">{{ 'username'|trans }}:</label>
-            <input type="text" id="username" name="_username" value="{{ last_username }}">
+        <div class="form-group">
+            <label for="username">{{ 'username'|trans }}:</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control">
+        </div>
+
 
         <label for="password">{{ 'password'|trans }}:</label>
-        <input type="password" id="password" name="_password">
+        <input type="password" id="password" name="_password" class="form-control">
 
         <input type="hidden" name="_token" value="{{ csrf_token('authenticate') }}">
 
-        <button type="submit">{{ 'login'|trans }}</button>
+        <button type="submit" class="btn btn-success">{{ 'login'|trans }}</button>
     </form>
 
-    <a href={{ path('app_register') }}>{{ 'register'|trans }}</a>
-
-
+    <a href={{ path('app_register') }} >{{ 'register'|trans }}</a>
 
 {% endblock %}

@@ -13,10 +13,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class LoginController extends AbstractController
 {
-    #[Route('/login', name: 'app_login')]
+    //#[Route('/login', name: 'app_login')]
     public function index(AuthenticationUtils $authenticationUtils, ManagerRegistry $entityManager, Request $request): Response
     {
-        $langue = $request->getLocale();
+        //$langue = $request->getLocale();
         $user = $this->getUser();
 
         if ($user) {
@@ -52,7 +52,7 @@ class LoginController extends AbstractController
             'last_username' => $lastUsername,
             'error' => $error,
             'page' => 'login',
-            'langue' => $langue,
+            //'langue' => $langue,
         ]);
     }
 }
