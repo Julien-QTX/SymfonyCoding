@@ -9,7 +9,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface; // Import Doctrine's EntityManager
-
+use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Logs;
+use App\Entity\Users;
 class ProfileController extends AbstractController
 {
     private $entityManager; // Declare the EntityManager property
@@ -20,8 +22,27 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/profile', name: 'app_profile')]
-    public function index()
+    public function index(ManagerRegistry $entityManager)
     {
+        $user = $this->getUser();
+
+        if ($user) {
+            $userId = $user->getId();
+            $userEntity = $entityManager->getRepository(Users::class)->findOneBy(['id' => $userId]);
+            $log = new Logs();
+            $log->setIdUser($userEntity);
+            $log->setPage('show profile ' . $user->getUsername());
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        } else {
+            $log = new Logs();
+            $log->setPage('show profile');
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        }
+
         // Récupérez les informations de l'utilisateur depuis la base de données
         $user = $this->getUser();
 
@@ -32,8 +53,27 @@ class ProfileController extends AbstractController
     }
 
     // Modifier le profil
-    public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher)
+    public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher, ManagerRegistry $entityManager)
     {
+        $user = $this->getUser();
+
+        if ($user) {
+            $userId = $user->getId();
+            $userEntity = $entityManager->getRepository(Users::class)->findOneBy(['id' => $userId]);
+            $log = new Logs();
+            $log->setIdUser($userEntity);
+            $log->setPage('edit profile ' . $user->getUsername());
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        } else {
+            $log = new Logs();
+            $log->setPage('edit profile');
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        }
+
         // Récupérez l'utilisateur connecté
         $user = $this->getUser();
 

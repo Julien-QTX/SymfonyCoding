@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\Slugger;
+use App\Entity\Logs;
+use App\Entity\Users;
 
 class CRUDPostsController extends AbstractController
 {
@@ -20,10 +22,28 @@ class CRUDPostsController extends AbstractController
     {
         $this->slugger = $slugger;
     }
-    
+
     #[Route('/posts/create', name: 'app_posts_create_controller', methods: ['GET', 'POST'])]
     public function create(Request $request, ManagerRegistry $entityManager): Response
     {
+        $user = $this->getUser();
+
+        if ($user) {
+            $userId = $user->getId();
+            $userEntity = $entityManager->getRepository(Users::class)->findOneBy(['id' => $userId]);
+            $log = new Logs();
+            $log->setIdUser($userEntity);
+            $log->setPage('create post');
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        } else {
+            $log = new Logs();
+            $log->setPage('create post');
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        }
 
         if ($request->isMethod('POST')) {
             $title = $request->request->get('title');
@@ -88,6 +108,25 @@ class CRUDPostsController extends AbstractController
     #[Route('/posts/show/{slug}', name: 'app_posts_show_controller', methods: ['GET'])]
     public function show($slug, ManagerRegistry $entityManager): Response
     {
+        $user = $this->getUser();
+
+        if ($user) {
+            $userId = $user->getId();
+            $userEntity = $entityManager->getRepository(Users::class)->findOneBy(['id' => $userId]);
+            $log = new Logs();
+            $log->setIdUser($userEntity);
+            $log->setPage('show post ' . $slug);
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        } else {
+            $log = new Logs();
+            $log->setPage('show post ' . $slug);
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        }
+
         $article = $entityManager->getRepository(Articles::class)->findOneBy(['slug' => $slug]);
         $title = $article->getTitle();
         $content = $article->getDescription();
@@ -100,6 +139,7 @@ class CRUDPostsController extends AbstractController
             'content' => $content,
             'date' => $date,
             'image' => $image,
+            'slug' => $slug,
             // 'tags' => $tags,
         ]);
     }
@@ -107,6 +147,25 @@ class CRUDPostsController extends AbstractController
     #[Route('/posts/edit/{slug}', name: 'app_posts_edit_controller', methods: ['GET', 'POST'])]
     public function edit($slug, Request $request, ManagerRegistry $entityManager): Response
     {
+        $user = $this->getUser();
+
+        if ($user) {
+            $userId = $user->getId();
+            $userEntity = $entityManager->getRepository(Users::class)->findOneBy(['id' => $userId]);
+            $log = new Logs();
+            $log->setIdUser($userEntity);
+            $log->setPage('edit post ' . $slug);
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        } else {
+            $log = new Logs();
+            $log->setPage('edit post ' . $slug);
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        }
+
         $article = $entityManager->getRepository(Articles::class)->findOneBy(['slug' => $slug]);
         $title = $article->getTitle();
         $content = $article->getDescription();
@@ -172,21 +231,47 @@ class CRUDPostsController extends AbstractController
             'content' => $content,
             'date' => $date,
             'image' => $image,
-            'tags' => $tags
+            'tags' => $tags,
+            'slug' => $slug,
         ]);
     }
 
     #[Route('/posts/delete/{slug}', name: 'app_posts_delete_controller', methods: ['POST'])]
     public function delete($slug, Request $request, ManagerRegistry $entityManager): Response
     {
+        $user = $this->getUser();
+
+        if ($user) {
+            $userId = $user->getId();
+            $userEntity = $entityManager->getRepository(Users::class)->findOneBy(['id' => $userId]);
+            $log = new Logs();
+            $log->setIdUser($userEntity);
+            $log->setPage('delete post ' . $slug);
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        } else {
+            $log = new Logs();
+            $log->setPage('delete post ' . $slug);
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        }
+
         $article = $entityManager->getRepository(Articles::class)->findOneBy(['slug' => $slug]);
         if (!$article) {
             throw $this->createNotFoundException('No article found for slug ' . $slug);
         }
         if ($request->isMethod('POST')) {
+            // verify tags liaison
+            $tagsLiaison = $entityManager->getRepository(TagsLiaison::class)->findBy(['id_article' => $article->getId()]);
+            foreach ($tagsLiaison as $tagLiaison) {
+                $entityManager->getManager()->remove($tagLiaison);
+                $entityManager->getManager()->flush();
+            }
             $entityManager->getManager()->remove($article);
             $entityManager->getManager()->flush();
-            return $this->redirectToRoute('app_posts_index_controller');
+            return $this->redirectToRoute('app_article');
         } else {
             return $this->redirectToRoute('app_posts_show_controller', ['slug' => $slug]);
         }

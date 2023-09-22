@@ -7,6 +7,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Articles;
+use App\Entity\Logs;
+use App\Entity\Users;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -16,6 +18,24 @@ class ArticleController extends AbstractController
     public function index(ManagerRegistry $entityManager, PaginatorInterface $paginator, Request $request): Response
     {
         $user = $this->getUser();
+
+        if ($user) {
+            $userId = $user->getId();
+            $userEntity = $entityManager->getRepository(Users::class)->findOneBy(['id' => $userId]);
+            $log = new Logs();
+            $log->setIdUser($userEntity);
+            $log->setPage('home');
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        } else {
+            $log = new Logs();
+            $log->setPage('home');
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        }
+        
         $articlestable = [];
         $articles = $entityManager->getRepository(Articles::class)->findAll();
         foreach ($articles as $article) {
@@ -38,8 +58,10 @@ class ArticleController extends AbstractController
         }
         // paginate
         $articles = $paginator->paginate(
-            $articlestable, /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
+            $articlestable,
+            /* query NOT result */
+            $request->query->getInt('page', 1),
+            /*page number*/
             10 /*limit per page*/
         );
         return $this->render('articles/index.html.twig', [
