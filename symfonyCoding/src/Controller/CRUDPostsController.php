@@ -136,6 +136,7 @@ class CRUDPostsController extends AbstractController
         $date = $article->getDate();
         $date = $date->format('d/m/Y');
         $image = $article->getImage();
+        $article_id = $article->getId();
         // $tags = $article->getTags();
         return $this->render('posts/show.html.twig', [
             'title' => $title,
@@ -144,7 +145,12 @@ class CRUDPostsController extends AbstractController
             'image' => $image,
             'slug' => $slug,
             'langue' => $langue,
+            'article_id' => $article_id,
+            // 'tags' => $tags,
         ]);
+
+
+
     }
 
     #[Route('/posts/edit/{slug}', name: 'app_posts_edit_controller', methods: ['GET', 'POST'])]

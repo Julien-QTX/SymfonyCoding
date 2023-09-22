@@ -19,9 +19,8 @@ profile_edit:
   methods: ['GET', 'POST']
 
 download_article_pdf:
-
-    path: '/article/{id}/download-pdf'
-    controller: 'App\Controller\ArticleController::downloadPdf'
+    path: '/download-article-pdf/{id}'
+    controller: 'App\Controller\ArticleController::downloadArticlePdf'
 navbar:
     path: '/navbar'
     controller: App\Controller\NavBarController::index
