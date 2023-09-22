@@ -31,12 +31,6 @@ class TagsLiaison
     {
         return $this->id_tag ? $this->id_tag->getId() : null;
     }
-
-    // public function getIdTag(): ?int
-    // {
-    //     return $this->id_tag;
-    // }
-
     public function setIdTag(?Tags $id_tag): static
     {
         $this->id_tag = $id_tag;

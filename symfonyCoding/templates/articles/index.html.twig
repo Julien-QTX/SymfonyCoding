@@ -74,12 +74,12 @@
             <tbody>
                 {% for article in articles %}
                 <tr class="article-container">
-                        <td>
-                    <a href="/posts/show/{{ article.slug }}">
+                    <td>
+                        <a href="/{{langue}}/posts/show/{{ article.slug }}">
                             <h3 class="article-title">{{ article.title }}</h3>
                             <p class="article-content">{{ article.content }}</p>
-                    </a>
-                        </td>
+                        </a>
+                    </td>
                     <td class="article-date">{{ article.date }}</td>
                     <td class="article-icons">
                         <i class="icon1" onclick="window.location.href='/posts/show/{{ article.slug }}'">
@@ -102,6 +102,10 @@
                     </td>
                 </tr>
                 {% endfor %}
+
+                <div class="pagination">
+                    {{ knp_pagination_render(articles) }}
+                </div>
             </tbody>
         </table>
     </div>

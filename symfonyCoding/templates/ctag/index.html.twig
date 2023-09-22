@@ -1,23 +1,36 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Liste des tags</h1>
+    <h1>{{ 'tag list'|trans }}</h1>
 
-    <a href="{{ path('app_ctag_create') }}">Créer un nouveau tag</a>
+    <a href="{{ path('app_ctag_create') }}">{{ 'tag.create_new'|trans }}</a>
+
+    <!-- Afficher la langue actuelle -->
+    <p>{{ 'current_language'|trans }} : {{ app.request.locale }}</p>
 
     <ul>
         {% for tag in tags %}
             <li>
                 {{ tag.name }}
-                <a href="{{ path('app_ctag_edit', {'id': tag.id}) }}">Éditer</a>
+                <a href="{{ path('app_ctag_edit', {'id': tag.id, '_locale': app.request.locale}) }}">{{ 'edit'|trans }}</a>
 
                 <!-- Formulaire de suppression -->
-                <form method="post" action="{{ path('app_ctag_delete', {'id': tag.id}) }}" style="display:inline;">
+                <form method="post" action="{{ path('app_ctag_delete', {'id': tag.id, '_locale': app.request.locale}) }}" style="display:inline;">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tag.id) }}">
-                    <button type="submit">Supprimer</button>
+                    <button type="submit">{{ 'delete'|trans }}</button>
                 </form>
+            </li>
+        {% endfor %}
+    </ul>
 
-
+    <ul class="dropdown-menu locales" role="menu" aria-labelledby="locales">
+        {% for locale in locales() %}
+            <li {% if app.request.locale == locale.code %}aria-checked="true" class="active"
+                {% else %}aria-checked="false"{% endif %} role="menuitem">
+                <a href="{{ path(app.request.get('_route'),
+                    app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">
+                    {{ locale.name|capitalize }} <small>{{ locale.code }}</small>
+                </a>
             </li>
         {% endfor %}
     </ul>

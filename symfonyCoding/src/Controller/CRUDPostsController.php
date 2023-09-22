@@ -2,25 +2,54 @@
 
 namespace App\Controller;
 
-use App\Entity\TagsLiaison;
+use App\Entity\Articles;
 use App\Entity\Tags;
+use App\Entity\TagsLiaison;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Articles;
+use App\Service\Slugger;
+use App\Entity\Logs;
+use App\Entity\Users;
 
 class CRUDPostsController extends AbstractController
 {
+    private Slugger $slugger;
+
+    public function __construct(Slugger $slugger)
+    {
+        $this->slugger = $slugger;
+    }
+
     #[Route('/posts/create', name: 'app_posts_create_controller', methods: ['GET', 'POST'])]
     public function create(Request $request, ManagerRegistry $entityManager): Response
     {
+        $langue = $request->getLocale();
+        $user = $this->getUser();
+
+        if ($user) {
+            $userId = $user->getId();
+            $userEntity = $entityManager->getRepository(Users::class)->findOneBy(['id' => $userId]);
+            $log = new Logs();
+            $log->setIdUser($userEntity);
+            $log->setPage('create post');
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        } else {
+            $log = new Logs();
+            $log->setPage('create post');
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        }
 
         if ($request->isMethod('POST')) {
             $title = $request->request->get('title');
             $tags = $request->request->get('tags');
-            
+
             $tags = str_replace(', ', ',', $tags);
             $tags = explode(',', $tags);
 
@@ -41,9 +70,7 @@ class CRUDPostsController extends AbstractController
                 $tagId = $tagEntity->getId();
             }
             $content = $request->request->get('content');
-            $slug = preg_replace('/-+/', '-', strtr($title, ['é' => 'e', 'è' => 'e', 'ê' => 'e', 'ë' => 'e', 'à' => 'a', 'â' => 'a', 'ä' => 'a', 'ô' => 'o', 'ö' => 'o', 'û' => 'u', 'ü' => 'u', 'ç' => 'c']));
-            $slug = strtolower(preg_replace('/[^a-zA-Z0-9]/', '-', $slug));
-            $slug = preg_replace('/-+/', '-', $slug);
+            $slug = $this->slugger->generateSlug($title);
 
 
 
@@ -75,13 +102,34 @@ class CRUDPostsController extends AbstractController
         }
         return $this->render('posts/create.html.twig', [
             'page' => 'create',
+            'langue' => $langue,
         ]);
 
     }
 
     #[Route('/posts/show/{slug}', name: 'app_posts_show_controller', methods: ['GET'])]
-    public function show($slug, ManagerRegistry $entityManager): Response
+    public function show($slug, ManagerRegistry $entityManager, Request $request): Response
     {
+        $langue = $request->getLocale();
+        $user = $this->getUser();
+
+        if ($user) {
+            $userId = $user->getId();
+            $userEntity = $entityManager->getRepository(Users::class)->findOneBy(['id' => $userId]);
+            $log = new Logs();
+            $log->setIdUser($userEntity);
+            $log->setPage('show post ' . $slug);
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        } else {
+            $log = new Logs();
+            $log->setPage('show post ' . $slug);
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        }
+
         $article = $entityManager->getRepository(Articles::class)->findOneBy(['slug' => $slug]);
         $title = $article->getTitle();
         $content = $article->getDescription();
@@ -95,6 +143,8 @@ class CRUDPostsController extends AbstractController
             'content' => $content,
             'date' => $date,
             'image' => $image,
+            'slug' => $slug,
+            'langue' => $langue,
             'article_id' => $article_id,
             // 'tags' => $tags,
         ]);
@@ -106,6 +156,26 @@ class CRUDPostsController extends AbstractController
     #[Route('/posts/edit/{slug}', name: 'app_posts_edit_controller', methods: ['GET', 'POST'])]
     public function edit($slug, Request $request, ManagerRegistry $entityManager): Response
     {
+        $langue = $request->getLocale();
+        $user = $this->getUser();
+
+        if ($user) {
+            $userId = $user->getId();
+            $userEntity = $entityManager->getRepository(Users::class)->findOneBy(['id' => $userId]);
+            $log = new Logs();
+            $log->setIdUser($userEntity);
+            $log->setPage('edit post ' . $slug);
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        } else {
+            $log = new Logs();
+            $log->setPage('edit post ' . $slug);
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        }
+
         $article = $entityManager->getRepository(Articles::class)->findOneBy(['slug' => $slug]);
         $title = $article->getTitle();
         $content = $article->getDescription();
@@ -143,9 +213,8 @@ class CRUDPostsController extends AbstractController
                 $tagId = $tagEntity->getId();
             }
             $content = $request->request->get('content');
-            $slug = preg_replace('/-+/', '-', strtr($title, ['é' => 'e', 'è' => 'e', 'ê' => 'e', 'ë' => 'e', 'à' => 'a', 'â' => 'a', 'ä' => 'a', 'ô' => 'o', 'ö' => 'o', 'û' => 'u', 'ü' => 'u', 'ç' => 'c']));
-            $slug = strtolower(preg_replace('/[^a-zA-Z0-9]/', '-', $slug));
-            $slug = preg_replace('/-+/', '-', $slug);
+            $slug = $this->slugger->generateSlug($title);
+
             $article->setTitle($title)
                 ->setDescription($content)
                 ->setDate(new \DateTime())
@@ -172,23 +241,53 @@ class CRUDPostsController extends AbstractController
             'content' => $content,
             'date' => $date,
             'image' => $image,
-            'tags' => $tags
+            'tags' => $tags,
+            'slug' => $slug,
+            'langue' => $langue,
         ]);
     }
 
     #[Route('/posts/delete/{slug}', name: 'app_posts_delete_controller', methods: ['POST'])]
     public function delete($slug, Request $request, ManagerRegistry $entityManager): Response
     {
+        $langue = $request->getLocale();
+        $user = $this->getUser();
+
+        if ($user) {
+            $userId = $user->getId();
+            $userEntity = $entityManager->getRepository(Users::class)->findOneBy(['id' => $userId]);
+            $log = new Logs();
+            $log->setIdUser($userEntity);
+            $log->setPage('delete post ' . $slug);
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        } else {
+            $log = new Logs();
+            $log->setPage('delete post ' . $slug);
+            $log->setDatetime(new \DateTime());
+            $entityManager->getManager()->persist($log);
+            $entityManager->getManager()->flush();
+        }
+
         $article = $entityManager->getRepository(Articles::class)->findOneBy(['slug' => $slug]);
         if (!$article) {
             throw $this->createNotFoundException('No article found for slug ' . $slug);
         }
         if ($request->isMethod('POST')) {
+            // verify tags liaison
+            $tagsLiaison = $entityManager->getRepository(TagsLiaison::class)->findBy(['id_article' => $article->getId()]);
+            foreach ($tagsLiaison as $tagLiaison) {
+                $entityManager->getManager()->remove($tagLiaison);
+                $entityManager->getManager()->flush();
+            }
             $entityManager->getManager()->remove($article);
             $entityManager->getManager()->flush();
-            return $this->redirectToRoute('app_posts_index_controller');
+            return $this->redirectToRoute('app_article');
         } else {
-            return $this->redirectToRoute('app_posts_show_controller', ['slug' => $slug]);
+            return $this->redirectToRoute('app_posts_show_controller', ['slug' => $slug,
+                'langue' => $langue,
+        ]);
         }
     }
 }

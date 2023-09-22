@@ -1,0 +1,17 @@
+controllers:
+  resource: ../src/Controller/
+  type: attribute
+
+profile:
+  path: '/profil'
+  controller: App\Controller\ProfileController::index
+  methods: ['GET']
+
+profile_edit:
+  path: '/profil/modifier'
+  controller: App\Controller\ProfileController::edit
+  methods: ['GET', 'POST']
+# config/routes.yaml
+download_article_pdf:
+  path: '/article/{id}/download-pdf'
+  controller: 'App\Controller\ArticleController::downloadPdf'

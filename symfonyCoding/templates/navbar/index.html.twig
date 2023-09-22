@@ -43,30 +43,72 @@
         background: #FFF;
         color: #333;
     }
+
+    .dropdown:hover .dropdown-block {
+        display: block;
+    }
+    
 </style>
 
 <nav>
     <ul>
         <li class="{{ home is defined and home ? 'current-page'  }}">
-            <a href="/">Home</a>
+            <a href="/{{langue}}">Home</a>
         </li>
+        {# categories #}
+        <li style="position: relative;" class="dropdown">
+            <a href="/{{langue}}/categories" style="text-decoration: none;">Categories</a>
+            <ul style="position: absolute; top: 100%; left: 0; display: none; list-style: none; padding: 0; margin: 0;" class="dropdown-block">
+                {% for category in categories %}
+                <li>
+                    <a href="/{{langue}}/category/{{category.name}}"
+                        style="text-decoration: none; padding: 10px; display: block; background: #eee;">{{ category.name
+                        }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+
         {% if is_granted('ROLE_USER') %}
         <li class="{{ profile is defined and profile ? 'current-page' }}">
-            <a href="/profile">Profile</a>
+            <a href="/{{langue}}/profile">Profile</a>
         </li>
         <li>
-            <a href="/logout">Logout</a>
+            <a href="/{{langue}}/logout">Logout</a>
         </li>
         {% else %}
         <li class="{{ login is defined and login ? 'current-page' }}">
-            <a href="/login">Login</a>
+            <a href="/{{langue}}/login">Login</a>
         </li>
         <li class="{{ register is defined and register ? 'current-page' }}">
-            <a href="/register">Register</a>
+            <a href="/{{langue}}/register">Register</a>
         </li>
         {% endif %}
-        <li class="{{ contact is defined and contact ? 'current-page' }}">
-            <a href="/contact">Contact</a>
+        {% if is_granted('ROLE_SUPER_ADMIN') %}
+        <li class="{{ admin is defined and admin ? 'current-page' }}">
+            <a href="/{{langue}}/admin">Admin</a>
         </li>
+        <li>
+            <a href="/{{langue}}/posts/create">Create Post</a>
+        </li>
+        {% else %}
+        <li class="{{ contact is defined and contact ? 'current-page' }}">
+            <a href="/{{langue}}/contact">Contact</a>
+        </li>
+        {% endif %}
     </ul>
+
+
+    <ul class="dropdown-menu locales" role="menu" aria-labelledby="locales">
+        {% for locale in locales() %}
+        <li {% if app.request.locale==locale.code %}aria-checked="true" class="active" {% else %}aria-checked="false" {%
+            endif %} role="menuitem">
+            <a href="{{ path(app.request.get('_route'),
+                    app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">
+                {{ locale.name|capitalize }} <small>{{ locale.code }}</small>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
 </nav>

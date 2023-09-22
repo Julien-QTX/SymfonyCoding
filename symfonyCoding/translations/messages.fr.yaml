@@ -1,0 +1,34 @@
+# Fichier de traduction pour le français (fr)
+
+homepage.welcome: Bienvenue sur notre site !
+homepage.description: Découvrez nos produits et services.
+profile.edit: Modifier le profil
+profile.save: Enregistrer les modifications
+article.title: Titre de l'article
+article.content: Contenu de l'article
+article.published_on: Publié le
+tag list: Liste des tags
+tag.create_new: Créer un nouveau tag
+current_language: Langue actuelle
+create_new_tag: Créer
+back_to_list: Retour à la liste
+delete_tag: Supprimer un Tag
+confirm_delete_tag: Êtes-vous sûr de vouloir supprimer le tag
+edit_tag: Éditer le tag
+update_tag: Mettre à jour
+register: S'inscrire
+title: Titre
+tags: Tags
+content: Contenu
+create: Créer
+edit_profile: Modifier le Profil
+save_changes: Enregistrer les Modifications
+back_to_profile: Retour au Profil
+profile: Profil
+logout: Se déconnecter
+username: Nom d'utilisateur
+email: E-mail
+password: Mot de passe
+login: Connexion
+edit: Éditer
+delete: Supprimer
