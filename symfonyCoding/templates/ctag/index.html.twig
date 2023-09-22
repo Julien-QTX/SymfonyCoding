@@ -3,21 +3,21 @@
 {% block body %}
     <h1>{{ 'tag list'|trans }}</h1>
 
-    <a href="{{ path('app_ctag_create') }}">Créer un nouveau tag</a>
+    <a href="{{ path('app_ctag_create') }}">{{ 'tag.create_new'|trans }}</a>
 
     <!-- Afficher la langue actuelle -->
-    <p>Langue actuelle : {{ app.request.locale }}</p>
+    <p>{{ 'current_language'|trans }} : {{ app.request.locale }}</p>
 
     <ul>
         {% for tag in tags %}
             <li>
                 {{ tag.name }}
-                <a href="{{ path('app_ctag_edit', {'id': tag.id, '_locale': app.request.locale}) }}">Éditer</a>
+                <a href="{{ path('app_ctag_edit', {'id': tag.id, '_locale': app.request.locale}) }}">{{ 'edit'|trans }}</a>
 
                 <!-- Formulaire de suppression -->
                 <form method="post" action="{{ path('app_ctag_delete', {'id': tag.id, '_locale': app.request.locale}) }}" style="display:inline;">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tag.id) }}">
-                    <button type="submit">Supprimer</button>
+                    <button type="submit">{{ 'delete'|trans }}</button>
                 </form>
             </li>
         {% endfor %}
