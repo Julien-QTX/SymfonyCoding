@@ -137,7 +137,7 @@ class CRUDPostsController extends AbstractController
         $date = $date->format('d/m/Y');
         $image = $article->getImage();
         $article_id = $article->getId();
-        // $tags = $article->getTags();
+
         return $this->render('posts/show.html.twig', [
             'title' => $title,
             'content' => $content,
@@ -146,6 +146,7 @@ class CRUDPostsController extends AbstractController
             'slug' => $slug,
             //'langue' => $langue,
             'article_id' => $article_id,
+            'article'=> $article
             // 'tags' => $tags,
         ]);
     }

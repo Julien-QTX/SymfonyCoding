@@ -21,6 +21,10 @@
 {% if is_granted('ROLE_USER') %}
 <script src="{{ asset('js/download_pdf.js') }}"></script>
 
+    {% for tag in article.tag %}
+        <p>{{ tag.name }}</p>
+    {% endfor %}
+
 <a href="{{ path('download_article_pdf', { 'id': article_id }) }}" class="download-link">Télécharger en PDF</a>
 {% endif %}
 {% endblock %}
