@@ -1,3 +1,28 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+
+#front:
+#    resource: 'routes/front.yaml'
+#    prefix: /{_locale}
+#    requirements:
+#        _locale: '%app_locales%'
+
+profile:
+    path: '/profil'
+    controller: App\Controller\ProfileController::index
+    methods: ['GET']
+
+profile_edit:
+    path: '/profil/modifier'
+    controller: App\Controller\ProfileController::edit
+    methods: ['GET', 'POST']
+# config/routes.yaml
+download_article_pdf:
+    path: '/download-article-pdf/{id}'
+    controller: 'App\Controller\ArticleController::downloadArticlePdf'
+
+navbar:
+    path: '/navbar'
+    controller: App\Controller\NavBarController::index
+    methods: ['GET']
