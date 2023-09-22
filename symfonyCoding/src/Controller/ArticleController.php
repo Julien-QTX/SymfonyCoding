@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Articles;
 use App\Entity\Logs;
 use App\Entity\Users;
+use App\Entity\Tags;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -36,9 +37,10 @@ class ArticleController extends AbstractController
             $entityManager->getManager()->persist($log);
             $entityManager->getManager()->flush();
         }
-        
+
         $articlestable = [];
         $articles = $entityManager->getRepository(Articles::class)->findAll();
+        $tags = $entityManager->getRepository(Tags::class)->findAll();
         foreach ($articles as $article) {
             $title = $article->getTitle();
             $content = $article->getDescription();
@@ -54,7 +56,6 @@ class ArticleController extends AbstractController
                 'date' => $date,
                 'image' => $image,
                 'slug' => $slug,
-                // 'tags' => $tags,
             ];
         }
         // paginate
@@ -69,6 +70,7 @@ class ArticleController extends AbstractController
             'articles' => $articles,
             'page' => 'home',
             'langue' => $langue,
+            'categories' => $tags,
         ]);
 
     }

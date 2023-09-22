@@ -43,6 +43,11 @@
         background: #FFF;
         color: #333;
     }
+
+    .dropdown:hover .dropdown-block {
+        display: block;
+    }
+    
 </style>
 
 <nav>
@@ -50,6 +55,20 @@
         <li class="{{ home is defined and home ? 'current-page'  }}">
             <a href="/{{langue}}">Home</a>
         </li>
+        {# categories #}
+        <li style="position: relative;" class="dropdown">
+            <a href="/{{langue}}/categories" style="text-decoration: none;">Categories</a>
+            <ul style="position: absolute; top: 100%; left: 0; display: none; list-style: none; padding: 0; margin: 0;" class="dropdown-block">
+                {% for category in categories %}
+                <li>
+                    <a href="/{{langue}}/category/{{category.name}}"
+                        style="text-decoration: none; padding: 10px; display: block; background: #eee;">{{ category.name
+                        }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+
         {% if is_granted('ROLE_USER') %}
         <li class="{{ profile is defined and profile ? 'current-page' }}">
             <a href="/{{langue}}/profile">Profile</a>
@@ -82,13 +101,13 @@
 
     <ul class="dropdown-menu locales" role="menu" aria-labelledby="locales">
         {% for locale in locales() %}
-            <li {% if app.request.locale == locale.code %}aria-checked="true" class="active"
-                {% else %}aria-checked="false"{% endif %} role="menuitem">
-                <a href="{{ path(app.request.get('_route'),
+        <li {% if app.request.locale==locale.code %}aria-checked="true" class="active" {% else %}aria-checked="false" {%
+            endif %} role="menuitem">
+            <a href="{{ path(app.request.get('_route'),
                     app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">
-                    {{ locale.name|capitalize }} <small>{{ locale.code }}</small>
-                </a>
-            </li>
+                {{ locale.name|capitalize }} <small>{{ locale.code }}</small>
+            </a>
+        </li>
         {% endfor %}
     </ul>
 

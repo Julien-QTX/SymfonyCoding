@@ -13,7 +13,7 @@ class TagFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR'); 
         $tagNames = ['Technologie', 'Sport', 'Musique', 'Art', 'Cuisine', 'Voyage', 'Santé', 'Science', 'Entreprise'];
-        for ($i = 0; $i < 1000; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $tagNames[] = $faker->word();
         }
 
