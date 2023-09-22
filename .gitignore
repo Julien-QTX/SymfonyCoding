@@ -33,3 +33,6 @@ symfonyCoding/composer.json
 symfonyCoding/composer.lock
 symfonyCoding/output.css
 *.lock
+*.iml
+*.xml
+.idea
