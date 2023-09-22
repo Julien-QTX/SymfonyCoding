@@ -9,6 +9,16 @@
     {{ form_end(form) }}
 
     <a href="{{ path('app_ctag_index') }}">Retour à la liste</a>
-
+    <ul class="dropdown-menu locales" role="menu" aria-labelledby="locales">
+        {% for locale in locales() %}
+            <li {% if app.request.locale == locale.code %}aria-checked="true" class="active"
+                {% else %}aria-checked="false"{% endif %} role="menuitem">
+                <a href="{{ path(app.request.get('_route'),
+                    app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">
+                    {{ locale.name|capitalize }} <small>{{ locale.code }}</small>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
 
 {% endblock %}
