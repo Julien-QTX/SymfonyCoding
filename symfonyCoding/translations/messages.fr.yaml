@@ -32,3 +32,6 @@ password: Mot de passe
 login: Connexion
 edit: Éditer
 delete: Supprimer
+alreadyHaveAccount: "Vous avez déjà un compte ?"
+editProfile: "Modifier Votre Profil"
+saveChanges: "Enregistrer les Modifications"

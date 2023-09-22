@@ -32,3 +32,6 @@ password: Password
 login: Login
 edit: Edit
 delete: Delete
+alreadyHaveAccount: "Already have an account?"
+editProfile: "Edit Your Profile"
+saveChanges: "Save Changes"

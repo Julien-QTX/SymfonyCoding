@@ -76,8 +76,9 @@ class ArticleController extends AbstractController
         ]);
     }
     #[Route('/download-article-pdf/{id}', name: 'downloadArticlePdf')]
-    public function downloadArticlePdf(int $id, PdfGenerator $pdfGenerator, EntityManagerInterface $entityManager): Response
+    public function downloadArticlePdf(int $id, PdfGenerator $pdfGenerator, EntityManagerInterface $entityManager, Request $request): Response
     {
+        $langue = $request->getLocale();
         // Récupérez l'article en fonction de l'ID
         $article = $entityManager->getRepository(Articles::class)->find($id);
         $title = $article->getTitle();
@@ -86,7 +87,7 @@ class ArticleController extends AbstractController
         $date = $date->format('d/m/Y');
         $image = $article->getImage();
         $article_id = $article->getId();
-
+        $slug = $article->getSlug();
         if (!$article) {
             throw $this->createNotFoundException('Article not found');
         }
@@ -99,7 +100,10 @@ class ArticleController extends AbstractController
             'date' => $date,
             'image' => $image,
             'article_id' => $article_id,
+            'langue' => $langue,
+            'slug' => $slug,
         ]);
+
 
         // Générez le PDF
         $pdf = $pdfGenerator->generatePdf($html);

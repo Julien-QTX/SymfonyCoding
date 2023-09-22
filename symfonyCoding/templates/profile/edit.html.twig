@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <h1>Modifier Votre Profil</h1>
+        <h1>{{'editProfile'|trans}} </h1>
 
         {{ form_start(form) }}
         {{ form_errors(form) }}
@@ -37,7 +37,7 @@
         <br>
         {# Ajoutez d'autres champs du formulaire ici #}
 
-        <button type="submit" class="btn btn-primary">Enregistrer les Modifications</button>
+        <button type="submit" class="btn btn-primary">{{'saveChanges'|trans}}</button>
 
         {{ form_end(form) }}
 
