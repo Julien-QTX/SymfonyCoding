@@ -9,17 +9,25 @@
     {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
     <link rel="stylesheet" href="{{ asset('build/app.css') }}">
     {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('app') }}
     {# {{ encore_entry_link_tags('app') }} #}
     {% endblock %}
 
     {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('app') }}
     {# {{ encore_entry_script_tags('app') }} #}
     {% endblock %}
 </head>
 
 <body>
+    {% include 'navbar/index.html.twig' with {
+        'home': page is defined and page == 'home',
+        'profile': page is defined and page == 'profile',
+        'login': page is defined and page == 'login',
+        'register': page is defined and page == 'register'
+    } %}
+    
+
     {% block body %}{% endblock %}
     <script src="{{ asset('build/app.js') }}"></script>
 </body>

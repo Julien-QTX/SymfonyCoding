@@ -21,3 +21,7 @@ profile_edit:
 download_article_pdf:
     path: '/article/{id}/download-pdf'
     controller: 'App\Controller\ArticleController::downloadPdf'
+navbar:
+    path: '/navbar'
+    controller: App\Controller\NavBarController::index
+    methods: ['GET']

@@ -25,7 +25,10 @@ class ProfileController extends AbstractController
         // Récupérez les informations de l'utilisateur depuis la base de données
         $user = $this->getUser();
 
-        return $this->render('profile/index.html.twig', ['user' => $user]);
+        return $this->render('profile/index.html.twig', [
+            'user' => $user,
+            'page' => 'profile'
+        ]);
     }
 
     // Modifier le profil
