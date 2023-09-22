@@ -3,7 +3,7 @@
 {% block title %}Supprimer un Tag{% endblock %}
 
 {% block body %}
-    <h1>Supprimer un Tag</h1>
+    <h1>Supprimer  un Tag</h1>
 
     <p>Êtes-vous sûr de vouloir supprimer le tag "{{ tag.name }}" ?</p>
 
@@ -11,8 +11,19 @@
           onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce tag ?');">
         <input type="hidden" name="_method" value="DELETE">
         {{ csrf_token('delete' ~ tag.id) }}
-        <button type="submit">Supprimer</button>
+        <button type="submit"> Supprimer</button>
     </form>
+    <ul class="dropdown-menu locales" role="menu" aria-labelledby="locales">
+        {% for locale in locales() %}
+            <li {% if app.request.locale == locale.code %}aria-checked="true" class="active"
+                {% else %}aria-checked="false"{% endif %} role="menuitem">
+                <a href="{{ path(app.request.get('_route'),
+                    app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">
+                    {{ locale.name|capitalize }} <small>{{ locale.code }}</small>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
 
     <a href="{{ path('app_ctag_index') }}">Retour à la liste des Tags</a>
 {% endblock %}
