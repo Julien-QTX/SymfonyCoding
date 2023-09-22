@@ -20,7 +20,7 @@ class ArticlesFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR'); // créer un générateur de fausses données pour le français
 
-        for ($i = 0; $i < 1000; $i++) {
+        for ($i = 0; $i < 5000; $i++) {
             $article = new Articles();
 
             $title = $faker->sentence();
