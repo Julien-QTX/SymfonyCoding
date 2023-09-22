@@ -2,17 +2,25 @@
 
 namespace App\Controller;
 
-use App\Entity\TagsLiaison;
+use App\Entity\Articles;
 use App\Entity\Tags;
+use App\Entity\TagsLiaison;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Articles;
+use App\Service\Slugger;
 
 class CRUDPostsController extends AbstractController
 {
+    private Slugger $slugger;
+
+    public function __construct(Slugger $slugger)
+    {
+        $this->slugger = $slugger;
+    }
+    
     #[Route('/posts/create', name: 'app_posts_create_controller', methods: ['GET', 'POST'])]
     public function create(Request $request, ManagerRegistry $entityManager): Response
     {
@@ -20,7 +28,7 @@ class CRUDPostsController extends AbstractController
         if ($request->isMethod('POST')) {
             $title = $request->request->get('title');
             $tags = $request->request->get('tags');
-            
+
             $tags = str_replace(', ', ',', $tags);
             $tags = explode(',', $tags);
 
@@ -41,9 +49,7 @@ class CRUDPostsController extends AbstractController
                 $tagId = $tagEntity->getId();
             }
             $content = $request->request->get('content');
-            $slug = preg_replace('/-+/', '-', strtr($title, ['é' => 'e', 'è' => 'e', 'ê' => 'e', 'ë' => 'e', 'à' => 'a', 'â' => 'a', 'ä' => 'a', 'ô' => 'o', 'ö' => 'o', 'û' => 'u', 'ü' => 'u', 'ç' => 'c']));
-            $slug = strtolower(preg_replace('/[^a-zA-Z0-9]/', '-', $slug));
-            $slug = preg_replace('/-+/', '-', $slug);
+            $slug = $this->slugger->generateSlug($title);
 
 
 
@@ -138,9 +144,8 @@ class CRUDPostsController extends AbstractController
                 $tagId = $tagEntity->getId();
             }
             $content = $request->request->get('content');
-            $slug = preg_replace('/-+/', '-', strtr($title, ['é' => 'e', 'è' => 'e', 'ê' => 'e', 'ë' => 'e', 'à' => 'a', 'â' => 'a', 'ä' => 'a', 'ô' => 'o', 'ö' => 'o', 'û' => 'u', 'ü' => 'u', 'ç' => 'c']));
-            $slug = strtolower(preg_replace('/[^a-zA-Z0-9]/', '-', $slug));
-            $slug = preg_replace('/-+/', '-', $slug);
+            $slug = $this->slugger->generateSlug($title);
+
             $article->setTitle($title)
                 ->setDescription($content)
                 ->setDate(new \DateTime())
