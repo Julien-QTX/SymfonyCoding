@@ -17,6 +17,7 @@ class ArticleController extends AbstractController
     #[Route('/', name: 'app_article')]
     public function index(ManagerRegistry $entityManager, PaginatorInterface $paginator, Request $request): Response
     {
+        $langue = $request->getLocale();
         $user = $this->getUser();
 
         if ($user) {
@@ -67,6 +68,7 @@ class ArticleController extends AbstractController
         return $this->render('articles/index.html.twig', [
             'articles' => $articles,
             'page' => 'home',
+            'langue' => $langue,
         ]);
 
     }

@@ -48,25 +48,25 @@
 <nav>
     <ul>
         <li class="{{ home is defined and home ? 'current-page'  }}">
-            <a href="/">Home</a>
+            <a href="/{{langue}}">Home</a>
         </li>
         {% if is_granted('ROLE_USER') %}
         <li class="{{ profile is defined and profile ? 'current-page' }}">
-            <a href="/en/profile">Profile</a>
+            <a href="/{{langue}}/profile">Profile</a>
         </li>
         <li>
-            <a href="/en/logout">Logout</a>
+            <a href="/{{langue}}/logout">Logout</a>
         </li>
         {% else %}
         <li class="{{ login is defined and login ? 'current-page' }}">
-            <a href="/en/login">Login</a>
+            <a href="/{{langue}}/login">Login</a>
         </li>
         <li class="{{ register is defined and register ? 'current-page' }}">
-            <a href="/en/register">Register</a>
+            <a href="/{{langue}}/register">Register</a>
         </li>
         {% endif %}
         <li class="{{ contact is defined and contact ? 'current-page' }}">
-            <a href="/en/contact">Contact</a>
+            <a href="/{{langue}}/contact">Contact</a>
         </li>
     </ul>
 

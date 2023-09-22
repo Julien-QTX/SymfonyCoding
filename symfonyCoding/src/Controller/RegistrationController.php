@@ -18,6 +18,7 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, ManagerRegistry $entityManager): Response
     {
+        $langue = $request->getLocale();
         $user = $this->getUser();
 
         if ($user) {
@@ -60,7 +61,8 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
-            'page' => 'register'
+            'page' => 'register',
+            'langue' => $langue,
         ]);
     }
 }

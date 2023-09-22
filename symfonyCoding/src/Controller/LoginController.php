@@ -8,11 +8,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Entity\Logs;
+use App\Entity\Users;
+use Symfony\Component\HttpFoundation\Request;
+
 class LoginController extends AbstractController
 {
     #[Route('/login', name: 'app_login')]
-    public function index(AuthenticationUtils $authenticationUtils, ManagerRegistry $entityManager): Response
+    public function index(AuthenticationUtils $authenticationUtils, ManagerRegistry $entityManager, Request $request): Response
     {
+        $langue = $request->getLocale();
         $user = $this->getUser();
 
         if ($user) {
@@ -48,6 +52,7 @@ class LoginController extends AbstractController
             'last_username' => $lastUsername,
             'error' => $error,
             'page' => 'login',
+            'langue' => $langue,
         ]);
     }
 }
