@@ -29,6 +29,6 @@ logout: Logout
 username: Username
 email: Email
 password: Password
-log_in: Log in
+login: Login
 edit: Edit
 delete: Delete

@@ -52,21 +52,35 @@
         </li>
         {% if is_granted('ROLE_USER') %}
         <li class="{{ profile is defined and profile ? 'current-page' }}">
-            <a href="/profile">Profile</a>
+            <a href="/en/profile">Profile</a>
         </li>
         <li>
-            <a href="/logout">Logout</a>
+            <a href="/en/logout">Logout</a>
         </li>
         {% else %}
         <li class="{{ login is defined and login ? 'current-page' }}">
-            <a href="/login">Login</a>
+            <a href="/en/login">Login</a>
         </li>
         <li class="{{ register is defined and register ? 'current-page' }}">
-            <a href="/register">Register</a>
+            <a href="/en/register">Register</a>
         </li>
         {% endif %}
         <li class="{{ contact is defined and contact ? 'current-page' }}">
-            <a href="/contact">Contact</a>
+            <a href="/en/contact">Contact</a>
         </li>
     </ul>
+
+
+    <ul class="dropdown-menu locales" role="menu" aria-labelledby="locales">
+        {% for locale in locales() %}
+            <li {% if app.request.locale == locale.code %}aria-checked="true" class="active"
+                {% else %}aria-checked="false"{% endif %} role="menuitem">
+                <a href="{{ path(app.request.get('_route'),
+                    app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">
+                    {{ locale.name|capitalize }} <small>{{ locale.code }}</small>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
 </nav>
