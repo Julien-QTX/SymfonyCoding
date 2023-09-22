@@ -1,8 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <script src="{{ asset('js/download_pdf.js') }}"></script>
     <h1>{{ title }}</h1>
     <p>{{ date }}</p>
     <p>{{ content }}</p>
     <img src="{{ image }}" alt="Article Image">
+
+    <a href="{{ path('download_article_pdf', { 'id': article_id }) }}" class="download-link">Télécharger en PDF</a>
+
 {% endblock %}
