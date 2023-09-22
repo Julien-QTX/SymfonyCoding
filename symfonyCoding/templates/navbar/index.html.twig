@@ -56,7 +56,7 @@
             <a href="/{{langue}}">Home</a>
         </li>
         {# categories #}
-        <li style="position: relative;" class="dropdown">
+        {# <li style="position: relative;" class="dropdown">
             <a href="/{{langue}}/categories" style="text-decoration: none;">Categories</a>
             <ul style="position: absolute; top: 100%; left: 0; display: none; list-style: none; padding: 0; margin: 0;" class="dropdown-block">
                 {% for category in categories %}
@@ -67,7 +67,7 @@
                 </li>
                 {% endfor %}
             </ul>
-        </li>
+        </li> #}
 
         {% if is_granted('ROLE_USER') %}
         <li class="{{ profile is defined and profile ? 'current-page' }}">
@@ -91,6 +91,8 @@
         <li>
             <a href="/{{langue}}/posts/create">Create Post</a>
         </li>
+        <a href="/{{langue}}/ctag">Create Tag</a>
+    </li>
         {% else %}
         <li class="{{ contact is defined and contact ? 'current-page' }}">
             <a href="/{{langue}}/contact">Contact</a>
