@@ -75,7 +75,7 @@
                 {% for article in articles %}
                 <tr class="article-container">
                     <td>
-                        <a href="/posts/show/{{ article.slug }}">
+                        <a href="/{{langue}}/posts/show/{{ article.slug }}">
                             <h3 class="article-title">{{ article.title }}</h3>
                             <p class="article-content">{{ article.content }}</p>
                         </a>
