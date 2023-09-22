@@ -34,6 +34,7 @@ class ArticleController extends AbstractController
         }
         return $this->render('articles/index.html.twig', [
             'articles' => $articlestable,
+            'page' => 'home',
         ]);
 
     }

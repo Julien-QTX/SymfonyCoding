@@ -73,7 +73,9 @@ class CRUDPostsController extends AbstractController
 
             return $this->redirectToRoute('app_posts_show_controller', ['slug' => $slug]);
         }
-        return $this->render('posts/create.html.twig');
+        return $this->render('posts/create.html.twig', [
+            'page' => 'create',
+        ]);
 
     }
 
@@ -92,7 +94,7 @@ class CRUDPostsController extends AbstractController
             'content' => $content,
             'date' => $date,
             'image' => $image,
-            // 'tags' => $tags
+            // 'tags' => $tags,
         ]);
     }
 
