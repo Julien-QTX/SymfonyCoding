@@ -65,9 +65,18 @@
             <a href="/{{langue}}/register">Register</a>
         </li>
         {% endif %}
+        {% if is_granted('ROLE_SUPER_ADMIN') %}
+        <li class="{{ admin is defined and admin ? 'current-page' }}">
+            <a href="/{{langue}}/admin">Admin</a>
+        </li>
+        <li>
+            <a href="/{{langue}}/posts/create">Create Post</a>
+        </li>
+        {% else %}
         <li class="{{ contact is defined and contact ? 'current-page' }}">
             <a href="/{{langue}}/contact">Contact</a>
         </li>
+        {% endif %}
     </ul>
 
 
